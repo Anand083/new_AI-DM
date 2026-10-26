@@ -1,14 +1,13 @@
 import { Link, useLocation, useMatchRoute } from "@tanstack/react-router";
 import type { LinkOptions } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { useState, type ComponentType } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { cn } from "cn";
 import {
   ArrowLeftRight,
   Check,
   ChevronLeft,
-  CircleHelp,
   CreditCard,
   LogOut,
   Settings,
@@ -60,12 +59,10 @@ const navButtonClass =
   "relative text-sidebar-foreground/70 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground data-active:bg-sidebar-accent data-active:text-sidebar-accent-foreground data-active:before:absolute data-active:before:inset-y-1 data-active:before:left-0 data-active:before:w-[3px] data-active:before:rounded-r-full data-active:before:bg-primary";
 
 function SidebarNavLink({
-  icon: Icon,
   label,
   linkProps,
   placeholder = false,
 }: {
-  icon: ComponentType<{ className?: string }>;
   label: string;
   linkProps: LinkOptions;
   /** Show the row without its link, while its project is still unknown. */
@@ -88,7 +85,6 @@ function SidebarNavLink({
       aria-disabled={placeholder || undefined}
       className={navButtonClass}
     >
-      <Icon className="size-4" />
       <span>{label}</span>
     </SidebarMenuButton>
   );
@@ -186,11 +182,10 @@ export function Sidebar({
                 <SidebarGroupContent>
                   <SidebarMenu>
                     {group.items.map((item) => {
-                      const { icon, label, ...linkProps } = item;
+                      const { icon: _icon, label, ...linkProps } = item;
                       return (
                         <SidebarNavLink
                           key={linkProps.to}
-                          icon={icon}
                           label={label}
                           linkProps={linkProps}
                           placeholder={navPlaceholder}
@@ -276,13 +271,11 @@ function AccountFooter({ ready }: { ready: boolean }) {
     <UiSidebarFooter className="gap-0 border-t border-sidebar-border pb-safe">
       <SidebarMenu>
         <SidebarNavLink
-          icon={CircleHelp}
           label="Help & Community"
           linkProps={{ to: "/support" }}
         />
         {everyApp ? (
           <SidebarNavLink
-            icon={Settings}
             label="Settings"
             linkProps={{ to: "/settings" }}
           />
@@ -371,7 +364,6 @@ function AccountFooter({ ready }: { ready: boolean }) {
           </SidebarMenuItem>
         ) : ready ? (
           <SidebarNavLink
-            icon={Settings}
             label="Settings"
             linkProps={{ to: "/settings" }}
           />
