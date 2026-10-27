@@ -1,47 +1,35 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import "@fontsource-variable/bricolage-grotesque";
+import "@fontsource-variable/instrument-sans";
+import "@fontsource/caveat/600.css";
 import { BRAND, SIGN_IN_URL } from "./brand";
 import "./landing-v2.css";
 
 const FEATURES = [
   {
-    title: "Keyword research",
-    body: "Volume, difficulty and intent for any seed keyword, with ideas you can save and group.",
+    title: "Site audits",
+    body: "Crawl any site and get the problems ranked by how much they cost you.",
   },
   {
     title: "Rank tracking",
-    body: "Daily positions for your keywords and your competitors, by country or city.",
+    body: "Daily positions for your keywords and your rivals, by country or city.",
   },
   {
-    title: "Site audits",
-    body: "Crawl a site and get a ranked list of broken links, missing tags and indexing problems.",
+    title: "Keyword research",
+    body: "Volume, difficulty and intent for any seed, ready to save and group.",
   },
   {
     title: "Backlinks",
-    body: "See who links to you and to your rivals, and find the gaps worth closing.",
+    body: "See who links to you and to your competitors, and where the gaps are.",
   },
   {
     title: "AI visibility",
-    body: "Check whether ChatGPT, Claude and Gemini mention your brand for the prompts that matter.",
+    body: "Check if ChatGPT, Claude and Gemini name your brand for the prompts that matter.",
   },
   {
     title: "Client reports",
-    body: "Share a clean report link with your own name on it. No spreadsheets to build.",
-  },
-];
-
-const STEPS = [
-  {
-    title: "Add a website",
-    body: "Paste a domain. We pull its keywords, competitors and current rankings.",
-  },
-  {
-    title: "Run the audit",
-    body: "Get a prioritized list of what is holding the site back, worst problems first.",
-  },
-  {
-    title: "Fix and track",
-    body: "Work through the list, then watch rankings and traffic move in one place.",
+    body: "Send one link with your own name on it. No spreadsheet to build.",
   },
 ];
 
@@ -52,7 +40,7 @@ const FAQ = [
   },
   {
     q: "Where does the data come from?",
-    a: "Search data comes from licensed providers and is combined with your own Google Search Console and Analytics when you connect them.",
+    a: "Search data comes from licensed providers. It is combined with your own Google Search Console and Analytics when you connect them.",
   },
   {
     q: "Can my AI assistant use it?",
@@ -75,46 +63,56 @@ function normalizeDomain(raw: string) {
     .replace(/\/.*$/, "");
 }
 
-function AuditMock() {
-  const issues = [
-    { label: "Pages with missing titles", n: 14, level: "high" },
-    { label: "Broken internal links", n: 9, level: "high" },
-    { label: "Slow images over 500 KB", n: 31, level: "mid" },
-    { label: "Duplicate meta descriptions", n: 22, level: "mid" },
-    { label: "Missing alt text", n: 48, level: "low" },
-  ];
-  const bars = [38, 44, 41, 52, 58, 55, 66, 72, 69, 80, 86, 94];
+/** A client page, marked up in red pen. One scan runs down it on load. */
+function MarkedUpPage() {
   return (
-    <div className="lp-mock" aria-hidden="true">
-      <div className="lp-mock-card lp-mock-score">
-        <div className="lp-ring">
-          <span>72</span>
-        </div>
-        <div>
-          <p className="lp-mock-kicker">Site health</p>
-          <p className="lp-mock-big">Good, with 5 fixes ready</p>
-        </div>
+    <div className="rl-sheet" aria-hidden="true">
+      <div className="rl-browser">
+        <span className="rl-tab">
+          <i className="rl-mark rl-mark-tab" />
+          clientsite.com
+        </span>
       </div>
-      <div className="lp-mock-card lp-mock-issues">
-        <p className="lp-mock-kicker">Fix first</p>
-        <ul>
-          {issues.map((i) => (
-            <li key={i.label}>
-              <span className={`lp-dot lp-${i.level}`} />
-              <span className="lp-issue-label">{i.label}</span>
-              <span className="lp-issue-n">{i.n}</span>
-            </li>
+      <div className="rl-page">
+        <div className="rl-nav">
+          <b />
+          <span />
+          <span />
+          <span className="rl-broken" />
+          <span />
+        </div>
+        <div className="rl-hero">
+          <div className="rl-hero-copy">
+            <i className="rl-line rl-line-xl" />
+            <i className="rl-line rl-line-xl rl-short" />
+            <i className="rl-line" />
+            <i className="rl-line rl-mid" />
+            <u className="rl-btn" />
+          </div>
+          <div className="rl-img">
+            <i className="rl-mark rl-mark-img" />
+          </div>
+        </div>
+        <div className="rl-cols">
+          {[0, 1, 2].map((n) => (
+            <div key={n}>
+              <i className="rl-line rl-mid" />
+              <i className="rl-line" />
+              <i className="rl-line rl-short" />
+            </div>
           ))}
-        </ul>
-      </div>
-      <div className="lp-mock-card lp-mock-trend">
-        <p className="lp-mock-kicker">Organic visits, 12 weeks</p>
-        <div className="lp-bars">
-          {bars.map((h, i) => (
-            <span key={i} style={{ height: `${h}%` }} />
-          ))}
+        </div>
+        <div className="rl-foot">
+          <i className="rl-line rl-mid" />
+          <i className="rl-tick" />
         </div>
       </div>
+
+      <p className="rl-note rl-note-tab">No title tag on 14 pages</p>
+      <p className="rl-note rl-note-nav">Broken link, 9 pages point here</p>
+      <p className="rl-note rl-note-img">Hero image is 2.4 MB</p>
+      <p className="rl-note rl-note-ok rl-note-foot">Sitemap is fine</p>
+      <div className="rl-scan" />
     </div>
   );
 }
@@ -122,12 +120,6 @@ function AuditMock() {
 export function LandingV2() {
   const [domain, setDomain] = useState("");
   const [open, setOpen] = useState<number | null>(0);
-
-  // Lets the site header, footer and page background switch to the dark look.
-  useEffect(() => {
-    document.body.classList.add("lp-dark-page");
-    return () => document.body.classList.remove("lp-dark-page");
-  }, []);
 
   function start(e: React.FormEvent) {
     e.preventDefault();
@@ -138,122 +130,128 @@ export function LandingV2() {
   }
 
   return (
-    <div className="lp">
-      <section className="lp-hero">
-        <div className="lp-glow" aria-hidden="true" />
-        <div className="lp-wrap lp-hero-inner">
-          <p className="lp-pill">Free site audit. Results in minutes.</p>
-          <h1>Find what holds your site back. Fix it. Prove it worked.</h1>
-          <p className="lp-lead">
-            {BRAND} audits any website, ranks the problems by impact, and
-            tracks your rankings as you fix them. Pay only for the data you
-            use.
-          </p>
-          <form className="lp-form" onSubmit={start}>
-            <input
-              value={domain}
-              onChange={(e) => setDomain(e.target.value)}
-              placeholder="yourwebsite.com"
-              aria-label="Website to audit"
-            />
-            <button type="submit">Run free audit</button>
-          </form>
-          <p className="lp-fine">No credit card needed.</p>
-          <div className="lp-frame">
-            <div className="lp-frame-bar" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-            </div>
-            <AuditMock />
+    <div className="rl">
+      <section className="rl-top">
+        <div className="rl-wrap rl-top-grid">
+          <div className="rl-top-copy">
+            <h1>
+              Every site has problems. Yours get a red pen.
+            </h1>
+            <p className="rl-lead">
+              Paste a website. {BRAND} crawls it, marks up what is broken, and
+              lists the fixes worst first. Then it tracks whether rankings
+              moved.
+            </p>
+            <form className="rl-form" onSubmit={start}>
+              <input
+                value={domain}
+                onChange={(e) => setDomain(e.target.value)}
+                placeholder="yourwebsite.com"
+                aria-label="Website to audit"
+              />
+              <button type="submit">Mark it up</button>
+            </form>
+            <p className="rl-fine">Free to try. You pay only for data you use.</p>
           </div>
+          <MarkedUpPage />
         </div>
       </section>
 
-      <section className="lp-band">
-        <div className="lp-wrap lp-facts">
-          <p>
-            <strong>Pay as you go</strong>
-            No monthly plan to outgrow
-          </p>
-          <p>
-            <strong>Works with your AI</strong>
-            Claude, ChatGPT and more
-          </p>
-          <p>
-            <strong>Built for agencies</strong>
-            One project per client
-          </p>
-          <p>
-            <strong>Your name on reports</strong>
-            Share a link, not a file
+      <section className="rl-board">
+        <div className="rl-wrap">
+          <h2>Before and after the same page</h2>
+          <div className="rl-pair">
+            <figure className="rl-before">
+              <figcaption>Monday: first audit</figcaption>
+              <p className="rl-score rl-bad">54</p>
+              <ul>
+                <li>14 pages without a title</li>
+                <li>9 broken internal links</li>
+                <li>31 images over 500 KB</li>
+                <li>22 duplicate descriptions</li>
+              </ul>
+            </figure>
+            <p className="rl-arrow" aria-hidden="true">
+              fix, re-run
+            </p>
+            <figure className="rl-after">
+              <figcaption>Three weeks later</figcaption>
+              <p className="rl-score rl-good">91</p>
+              <ul>
+                <li>Titles on every page</li>
+                <li>Broken links redirected</li>
+                <li>Images compressed</li>
+                <li>Descriptions rewritten</li>
+              </ul>
+            </figure>
+          </div>
+          <p className="rl-caption">
+            Illustration. Your numbers come from your own site.
           </p>
         </div>
       </section>
 
-      <section className="lp-section">
-        <div className="lp-wrap">
-          <h2>Everything you need to rank, nothing you don't</h2>
-          <p className="lp-sub">
-            The core SEO workflows in one focused tool, without the bloat of a
-            giant suite.
-          </p>
-          <div className="lp-grid">
+      <section className="rl-tools">
+        <div className="rl-wrap">
+          <h2>What is in the box</h2>
+          <ul className="rl-list">
             {FEATURES.map((f) => (
-              <article key={f.title} className="lp-feature">
+              <li key={f.title}>
                 <h3>{f.title}</h3>
                 <p>{f.body}</p>
-              </article>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      <section className="lp-section lp-alt">
-        <div className="lp-wrap">
-          <h2>From a domain to a plan in three steps</h2>
-          <ol className="lp-steps">
-            {STEPS.map((s, i) => (
-              <li key={s.title}>
-                <span className="lp-step-n">{i + 1}</span>
-                <h3>{s.title}</h3>
-                <p>{s.body}</p>
-              </li>
-            ))}
+      <section className="rl-how">
+        <div className="rl-wrap rl-how-grid">
+          <h2>Three steps, in this order</h2>
+          <ol>
+            <li>
+              <b>Add the site.</b> Paste a domain. We pull its keywords and
+              rivals.
+            </li>
+            <li>
+              <b>Read the markup.</b> Problems come ranked, with the fix next
+              to each.
+            </li>
+            <li>
+              <b>Re-run and compare.</b> See which fixes moved the score and the
+              rankings.
+            </li>
           </ol>
         </div>
       </section>
 
-      <section className="lp-section">
-        <div className="lp-wrap lp-faq">
+      <section className="rl-faq">
+        <div className="rl-wrap rl-faq-grid">
           <h2>Questions</h2>
-          {FAQ.map((f, i) => (
-            <div key={f.q} className="lp-faq-item">
-              <button
-                type="button"
-                aria-expanded={open === i}
-                onClick={() => setOpen(open === i ? null : i)}
-              >
-                {f.q}
-                <span>{open === i ? "Hide" : "Show"}</span>
-              </button>
-              {open === i ? <p>{f.a}</p> : null}
-            </div>
-          ))}
+          <div>
+            {FAQ.map((f, i) => (
+              <div key={f.q} className="rl-faq-item">
+                <button
+                  type="button"
+                  aria-expanded={open === i}
+                  onClick={() => setOpen(open === i ? null : i)}
+                >
+                  {f.q}
+                  <span aria-hidden="true">{open === i ? "−" : "+"}</span>
+                </button>
+                {open === i ? <p>{f.a}</p> : null}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="lp-cta">
-        <div className="lp-wrap">
-          <h2>See what is holding your site back</h2>
-          <p>Run a free audit and get your first fix list today.</p>
-          <div className="lp-cta-row">
-            <a className="lp-btn-light" href={SIGN_IN_URL}>
-              Start free
-            </a>
-            <Link className="lp-btn-ghost" to="/pricing">
-              See pricing
-            </Link>
+      <section className="rl-end">
+        <div className="rl-wrap">
+          <h2>Find out what is holding your site back</h2>
+          <div className="rl-end-row">
+            <a href={SIGN_IN_URL}>Run a free audit</a>
+            <Link to="/pricing">See pricing</Link>
           </div>
         </div>
       </section>
