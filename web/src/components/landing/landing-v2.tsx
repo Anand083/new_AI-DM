@@ -1,10 +1,24 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "@fontsource-variable/bricolage-grotesque";
 import "@fontsource-variable/instrument-sans";
-import "@fontsource/caveat/600.css";
 import { BRAND, SIGN_IN_URL } from "./brand";
 import "./landing-v2.css";
+
+const COVER_LINES = [
+  {
+    title: "The fix list",
+    body: "14 missing titles, 9 broken links and 31 heavy images, ranked worst first.",
+  },
+  {
+    title: "Rank tracking, daily",
+    body: "You and every rival, by country or city.",
+  },
+  {
+    title: "Reports with your name",
+    body: "One link for the client. No spreadsheets.",
+  },
+];
 
 const FEATURES = [
   {
@@ -30,6 +44,21 @@ const FEATURES = [
   {
     title: "Client reports",
     body: "Send one link with your own name on it. No spreadsheet to build.",
+  },
+];
+
+const STEPS = [
+  {
+    title: "Add the site",
+    body: "Paste a domain. We pull its keywords and rivals.",
+  },
+  {
+    title: "Read the fix list",
+    body: "Problems come ranked, with the fix next to each one.",
+  },
+  {
+    title: "Re-run and compare",
+    body: "See which fixes moved the score and the rankings.",
   },
 ];
 
@@ -63,63 +92,8 @@ function normalizeDomain(raw: string) {
     .replace(/\/.*$/, "");
 }
 
-/** A client page, marked up in red pen. One scan runs down it on load. */
-function MarkedUpPage() {
-  return (
-    <div className="rl-sheet" aria-hidden="true">
-      <div className="rl-browser">
-        <span className="rl-tab">
-          <i className="rl-mark rl-mark-tab" />
-          clientsite.com
-        </span>
-      </div>
-      <div className="rl-page">
-        <div className="rl-nav">
-          <b />
-          <span />
-          <span />
-          <span className="rl-broken" />
-          <span />
-        </div>
-        <div className="rl-hero">
-          <div className="rl-hero-copy">
-            <i className="rl-line rl-line-xl" />
-            <i className="rl-line rl-line-xl rl-short" />
-            <i className="rl-line" />
-            <i className="rl-line rl-mid" />
-            <u className="rl-btn" />
-          </div>
-          <div className="rl-img">
-            <i className="rl-mark rl-mark-img" />
-          </div>
-        </div>
-        <div className="rl-cols">
-          {[0, 1, 2].map((n) => (
-            <div key={n}>
-              <i className="rl-line rl-mid" />
-              <i className="rl-line" />
-              <i className="rl-line rl-short" />
-            </div>
-          ))}
-        </div>
-        <div className="rl-foot">
-          <i className="rl-line rl-mid" />
-          <i className="rl-tick" />
-        </div>
-      </div>
-
-      <p className="rl-note rl-note-tab">No title tag on 14 pages</p>
-      <p className="rl-note rl-note-nav">Broken link, 9 pages point here</p>
-      <p className="rl-note rl-note-img">Hero image is 2.4 MB</p>
-      <p className="rl-note rl-note-ok rl-note-foot">Sitemap is fine</p>
-      <div className="rl-scan" />
-    </div>
-  );
-}
-
-export function LandingV2() {
+function AuditForm({ id }: { id: string }) {
   const [domain, setDomain] = useState("");
-  const [open, setOpen] = useState<number | null>(0);
 
   function start(e: React.FormEvent) {
     e.preventDefault();
@@ -130,71 +104,96 @@ export function LandingV2() {
   }
 
   return (
-    <div className="rl">
-      <section className="rl-top">
-        <div className="rl-wrap rl-top-grid">
-          <div className="rl-top-copy">
-            <h1>
-              Every site has problems. Yours get a red pen.
-            </h1>
-            <p className="rl-lead">
-              Paste a website. {BRAND} crawls it, marks up what is broken, and
-              lists the fixes worst first. Then it tracks whether rankings
-              moved.
+    <form className="mg-form" onSubmit={start}>
+      <input
+        id={id}
+        value={domain}
+        onChange={(e) => setDomain(e.target.value)}
+        placeholder="clientsite.com"
+        aria-label="Website to audit"
+      />
+      <button type="submit">Run the audit</button>
+    </form>
+  );
+}
+
+export function LandingV2() {
+  const [open, setOpen] = useState<number | null>(0);
+
+  // The big masthead is the logo here, so the small header logo steps aside.
+  useEffect(() => {
+    document.body.classList.add("mg-page");
+    return () => document.body.classList.remove("mg-page");
+  }, []);
+
+  return (
+    <div className="mg">
+      <div className="mg-mast">
+        <p className="mg-logo">{BRAND}</p>
+        <p className="mg-tag">The audit edition</p>
+      </div>
+
+      <section className="mg-cover">
+        <div className="mg-cover-main">
+          <h1>
+            The site problems your agency <em>missed.</em>
+          </h1>
+          <div>
+            <p className="mg-lead">
+              Paste a client&apos;s website. Get the full list of what is
+              broken, ranked worst first, then track whether the fixes worked.
             </p>
-            <form className="rl-form" onSubmit={start}>
-              <input
-                value={domain}
-                onChange={(e) => setDomain(e.target.value)}
-                placeholder="yourwebsite.com"
-                aria-label="Website to audit"
-              />
-              <button type="submit">Mark it up</button>
-            </form>
-            <p className="rl-fine">Free to try. You pay only for data you use.</p>
+            <AuditForm id="mg-url-top" />
+            <p className="mg-fine">
+              Free to try. You pay only for the data you use.
+            </p>
           </div>
-          <MarkedUpPage />
         </div>
+        <ul className="mg-lines">
+          {COVER_LINES.map((l) => (
+            <li key={l.title}>
+              <h3>{l.title}</h3>
+              <p>{l.body}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
-      <section className="rl-board">
-        <div className="rl-wrap">
-          <h2>Before and after the same page</h2>
-          <div className="rl-pair">
-            <figure className="rl-before">
-              <figcaption>Monday: first audit</figcaption>
-              <p className="rl-score rl-bad">54</p>
+      <section className="mg-story">
+        <div className="mg-wrap">
+          <h2>Cover story: the same site, three weeks apart</h2>
+          <div className="mg-compare">
+            <div>
+              <p className="mg-cap">First audit</p>
+              <p className="mg-score">54</p>
               <ul>
                 <li>14 pages without a title</li>
                 <li>9 broken internal links</li>
                 <li>31 images over 500 KB</li>
                 <li>22 duplicate descriptions</li>
               </ul>
-            </figure>
-            <p className="rl-arrow" aria-hidden="true">
-              fix, re-run
-            </p>
-            <figure className="rl-after">
-              <figcaption>Three weeks later</figcaption>
-              <p className="rl-score rl-good">91</p>
+            </div>
+            <div className="mg-compare-after">
+              <p className="mg-cap">After the fixes</p>
+              <p className="mg-score">91</p>
               <ul>
                 <li>Titles on every page</li>
                 <li>Broken links redirected</li>
                 <li>Images compressed</li>
                 <li>Descriptions rewritten</li>
               </ul>
-            </figure>
+            </div>
           </div>
-          <p className="rl-caption">
+          <p className="mg-note">
             Illustration. Your numbers come from your own site.
           </p>
         </div>
       </section>
 
-      <section className="rl-tools">
-        <div className="rl-wrap">
-          <h2>What is in the box</h2>
-          <ul className="rl-list">
+      <section className="mg-inside">
+        <div className="mg-wrap">
+          <h2>Inside</h2>
+          <ul className="mg-toc">
             {FEATURES.map((f) => (
               <li key={f.title}>
                 <h3>{f.title}</h3>
@@ -205,32 +204,26 @@ export function LandingV2() {
         </div>
       </section>
 
-      <section className="rl-how">
-        <div className="rl-wrap rl-how-grid">
-          <h2>Three steps, in this order</h2>
+      <section className="mg-how">
+        <div className="mg-wrap">
+          <h2>How it works</h2>
           <ol>
-            <li>
-              <b>Add the site.</b> Paste a domain. We pull its keywords and
-              rivals.
-            </li>
-            <li>
-              <b>Read the markup.</b> Problems come ranked, with the fix next
-              to each.
-            </li>
-            <li>
-              <b>Re-run and compare.</b> See which fixes moved the score and the
-              rankings.
-            </li>
+            {STEPS.map((s) => (
+              <li key={s.title}>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+              </li>
+            ))}
           </ol>
         </div>
       </section>
 
-      <section className="rl-faq">
-        <div className="rl-wrap rl-faq-grid">
-          <h2>Questions</h2>
+      <section className="mg-faq">
+        <div className="mg-wrap mg-faq-grid">
+          <h2>Letters</h2>
           <div>
             {FAQ.map((f, i) => (
-              <div key={f.q} className="rl-faq-item">
+              <div key={f.q} className="mg-faq-item">
                 <button
                   type="button"
                   aria-expanded={open === i}
@@ -246,10 +239,10 @@ export function LandingV2() {
         </div>
       </section>
 
-      <section className="rl-end">
-        <div className="rl-wrap">
-          <h2>Find out what is holding your site back</h2>
-          <div className="rl-end-row">
+      <section className="mg-end">
+        <div className="mg-wrap">
+          <h2>Find out what is holding the site back</h2>
+          <div className="mg-end-row">
             <a href={SIGN_IN_URL}>Run a free audit</a>
             <Link to="/pricing">See pricing</Link>
           </div>

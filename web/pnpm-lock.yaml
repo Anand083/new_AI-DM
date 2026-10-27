@@ -25,7 +25,13 @@ importers:
       '@fontsource-variable/bricolage-grotesque':
         specifier: ^5.3.0
         version: 5.3.0
+      '@fontsource-variable/dm-sans':
+        specifier: ^5.3.0
+        version: 5.3.0
       '@fontsource-variable/instrument-sans':
+        specifier: ^5.3.0
+        version: 5.3.0
+      '@fontsource-variable/syne':
         specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/caveat':
@@ -588,8 +594,14 @@ packages:
   '@fontsource-variable/bricolage-grotesque@5.3.0':
     resolution: {integrity: sha512-TLi9Q4hJjS2UvoTMRSS2nHu6c4R56lAw60NR9QYtVRCHn0XtsFpiEhNffZ8Glsoxu6wEEwLKBP8lb94J52PNBA==}
 
+  '@fontsource-variable/dm-sans@5.3.0':
+    resolution: {integrity: sha512-BpUG5bqePiDFMBM4ZtLSlPdAIOM990uB1dlXzIf4aw21yQR7BmykedLXXXMqGWsR18aMLOsbWccwJNh3ztTQaA==}
+
   '@fontsource-variable/instrument-sans@5.3.0':
     resolution: {integrity: sha512-u4gKbDBTNFGkg997tfQn3eHOhHuquWUFTRT/rwzuKtrxX5P2ekfs2x+LgBPP4P32+cC+vUwF1Cr+IdRoPQbrGw==}
+
+  '@fontsource-variable/syne@5.3.0':
+    resolution: {integrity: sha512-GUNH65fUfWHQcX7bO0BGgScE465gawpTId45aDfhHcVj/upbb6b+2d++5keKP128vK8+LtE4dvLkKTsxoh7TwA==}
 
   '@fontsource/caveat@5.3.0':
     resolution: {integrity: sha512-eHTfzQxFSW9ABERRLNruHoNJmKed2J7pqTUc5lp4a4POMgXGKpxmWj3d9Hz10kmAg6iuTTLe6UagbA4bnsmfQw==}
@@ -3517,7 +3529,11 @@ snapshots:
 
   '@fontsource-variable/bricolage-grotesque@5.3.0': {}
 
+  '@fontsource-variable/dm-sans@5.3.0': {}
+
   '@fontsource-variable/instrument-sans@5.3.0': {}
+
+  '@fontsource-variable/syne@5.3.0': {}
 
   '@fontsource/caveat@5.3.0': {}
 
