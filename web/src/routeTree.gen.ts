@@ -19,6 +19,7 @@ import { Route as MarketingAboutRouteImport } from './routes/_marketing/about'
 import { Route as MarketingAhrefsAlternativeRouteImport } from './routes/_marketing/ahrefs-alternative'
 import { Route as MarketingAhrefsPricingRouteImport } from './routes/_marketing/ahrefs-pricing'
 import { Route as MarketingBacklinkCheckerRouteImport } from './routes/_marketing/backlink-checker'
+import { Route as MarketingChangelogRouteImport } from './routes/_marketing/changelog'
 import { Route as MarketingCompetitorAnalysisRouteImport } from './routes/_marketing/competitor-analysis'
 import { Route as MarketingCompetitorKeywordFinderRouteImport } from './routes/_marketing/competitor-keyword-finder'
 import { Route as MarketingDomainAgeCheckerRouteImport } from './routes/_marketing/domain-age-checker'
@@ -152,6 +153,11 @@ const MarketingBacklinkCheckerRoute =
     path: '/backlink-checker',
     getParentRoute: () => MarketingRoute,
   } as any)
+const MarketingChangelogRoute = MarketingChangelogRouteImport.update({
+  id: '/changelog',
+  path: '/changelog',
+  getParentRoute: () => MarketingRoute,
+} as any)
 const MarketingCompetitorAnalysisRoute =
   MarketingCompetitorAnalysisRouteImport.update({
     id: '/competitor-analysis',
@@ -629,6 +635,7 @@ export interface FileRoutesByFullPath {
   '/ahrefs-alternative': typeof MarketingAhrefsAlternativeRoute
   '/ahrefs-pricing': typeof MarketingAhrefsPricingRoute
   '/backlink-checker': typeof MarketingBacklinkCheckerRoute
+  '/changelog': typeof MarketingChangelogRoute
   '/competitor-analysis': typeof MarketingCompetitorAnalysisRoute
   '/competitor-keyword-finder': typeof MarketingCompetitorKeywordFinderRoute
   '/domain-age-checker': typeof MarketingDomainAgeCheckerRoute
@@ -721,6 +728,7 @@ export interface FileRoutesByTo {
   '/ahrefs-alternative': typeof MarketingAhrefsAlternativeRoute
   '/ahrefs-pricing': typeof MarketingAhrefsPricingRoute
   '/backlink-checker': typeof MarketingBacklinkCheckerRoute
+  '/changelog': typeof MarketingChangelogRoute
   '/competitor-analysis': typeof MarketingCompetitorAnalysisRoute
   '/competitor-keyword-finder': typeof MarketingCompetitorKeywordFinderRoute
   '/domain-age-checker': typeof MarketingDomainAgeCheckerRoute
@@ -815,6 +823,7 @@ export interface FileRoutesById {
   '/_marketing/ahrefs-alternative': typeof MarketingAhrefsAlternativeRoute
   '/_marketing/ahrefs-pricing': typeof MarketingAhrefsPricingRoute
   '/_marketing/backlink-checker': typeof MarketingBacklinkCheckerRoute
+  '/_marketing/changelog': typeof MarketingChangelogRoute
   '/_marketing/competitor-analysis': typeof MarketingCompetitorAnalysisRoute
   '/_marketing/competitor-keyword-finder': typeof MarketingCompetitorKeywordFinderRoute
   '/_marketing/domain-age-checker': typeof MarketingDomainAgeCheckerRoute
@@ -910,6 +919,7 @@ export interface FileRouteTypes {
     | '/ahrefs-alternative'
     | '/ahrefs-pricing'
     | '/backlink-checker'
+    | '/changelog'
     | '/competitor-analysis'
     | '/competitor-keyword-finder'
     | '/domain-age-checker'
@@ -1002,6 +1012,7 @@ export interface FileRouteTypes {
     | '/ahrefs-alternative'
     | '/ahrefs-pricing'
     | '/backlink-checker'
+    | '/changelog'
     | '/competitor-analysis'
     | '/competitor-keyword-finder'
     | '/domain-age-checker'
@@ -1095,6 +1106,7 @@ export interface FileRouteTypes {
     | '/_marketing/ahrefs-alternative'
     | '/_marketing/ahrefs-pricing'
     | '/_marketing/backlink-checker'
+    | '/_marketing/changelog'
     | '/_marketing/competitor-analysis'
     | '/_marketing/competitor-keyword-finder'
     | '/_marketing/domain-age-checker'
@@ -1275,6 +1287,13 @@ declare module '@tanstack/react-router' {
       path: '/backlink-checker'
       fullPath: '/backlink-checker'
       preLoaderRoute: typeof MarketingBacklinkCheckerRouteImport
+      parentRoute: typeof MarketingRoute
+    }
+    '/_marketing/changelog': {
+      id: '/_marketing/changelog'
+      path: '/changelog'
+      fullPath: '/changelog'
+      preLoaderRoute: typeof MarketingChangelogRouteImport
       parentRoute: typeof MarketingRoute
     }
     '/_marketing/competitor-analysis': {
@@ -1873,6 +1892,7 @@ interface MarketingRouteChildren {
   MarketingAhrefsAlternativeRoute: typeof MarketingAhrefsAlternativeRoute
   MarketingAhrefsPricingRoute: typeof MarketingAhrefsPricingRoute
   MarketingBacklinkCheckerRoute: typeof MarketingBacklinkCheckerRoute
+  MarketingChangelogRoute: typeof MarketingChangelogRoute
   MarketingCompetitorAnalysisRoute: typeof MarketingCompetitorAnalysisRoute
   MarketingCompetitorKeywordFinderRoute: typeof MarketingCompetitorKeywordFinderRoute
   MarketingDomainAgeCheckerRoute: typeof MarketingDomainAgeCheckerRoute
@@ -1944,6 +1964,7 @@ const MarketingRouteChildren: MarketingRouteChildren = {
   MarketingAhrefsAlternativeRoute: MarketingAhrefsAlternativeRoute,
   MarketingAhrefsPricingRoute: MarketingAhrefsPricingRoute,
   MarketingBacklinkCheckerRoute: MarketingBacklinkCheckerRoute,
+  MarketingChangelogRoute: MarketingChangelogRoute,
   MarketingCompetitorAnalysisRoute: MarketingCompetitorAnalysisRoute,
   MarketingCompetitorKeywordFinderRoute: MarketingCompetitorKeywordFinderRoute,
   MarketingDomainAgeCheckerRoute: MarketingDomainAgeCheckerRoute,

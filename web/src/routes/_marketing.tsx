@@ -148,8 +148,8 @@ function MarketingLayout() {
     const root = document.documentElement;
     const prevRoot = root.style.backgroundColor;
     const prevBody = document.body.style.backgroundColor;
-    root.style.backgroundColor = "#f5f1ec";
-    document.body.style.backgroundColor = "#f5f1ec";
+    root.style.backgroundColor = "#fbfcfb";
+    document.body.style.backgroundColor = "#fbfcfb";
     return () => {
       root.style.backgroundColor = prevRoot;
       document.body.style.backgroundColor = prevBody;
@@ -175,7 +175,7 @@ function MarketingLayout() {
 
   return (
     <main className="fd-light min-h-screen bg-[var(--color-surface)] text-[var(--color-brand)]">
-      <header className="sticky top-0 z-50 w-full border-b border-[#ded9d2] bg-[#f5f1ec]/95 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 w-full border-b border-[#e5e7eb] bg-[#fbfcfb]/95 backdrop-blur-xl">
         <div className="relative mx-auto w-full max-w-[1232px] px-6">
           <nav
             aria-label="Main navigation"
@@ -205,7 +205,7 @@ function MarketingLayout() {
                 aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={mobileMenuOpen}
                 onClick={() => setMobileMenuOpen((open) => !open)}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-900 transition-colors hover:bg-[#f5f1ec] md:hidden"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-900 transition-colors hover:bg-[#fbfcfb] md:hidden"
               >
                 {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
               </button>
@@ -223,7 +223,7 @@ function MarketingLayout() {
               </a>
               <a
                 href="https://app.openseo.so/sign-in"
-                className="hidden h-9 items-center gap-2 border-l border-[#ded9d2] pl-5 text-sm font-medium text-neutral-900 transition-colors hover:text-neutral-600 md:inline-flex"
+                className="hidden h-9 items-center gap-2 border-l border-[#e5e7eb] pl-5 text-sm font-medium text-neutral-900 transition-colors hover:text-neutral-600 md:inline-flex"
               >
                 Sign in <span aria-hidden="true">↗</span>
               </a>
@@ -231,7 +231,7 @@ function MarketingLayout() {
           </nav>
 
           {mobileMenuOpen ? (
-            <div className="absolute inset-x-0 top-full h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-[#ded9d2] bg-[#f5f1ec] p-4 md:hidden">
+            <div className="absolute inset-x-0 top-full h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-[#e5e7eb] bg-[#fbfcfb] p-4 md:hidden">
               <div className="grid grid-cols-2 gap-2">
                 <a
                   href="https://app.openseo.so/sign-in"
@@ -243,7 +243,7 @@ function MarketingLayout() {
                 <a
                   href="https://app.openseo.so/sign-in"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex h-11 items-center justify-center rounded-xl border border-[#ded9d2] bg-white px-3 text-sm font-medium text-neutral-800 transition-colors hover:border-neutral-900"
+                  className="flex h-11 items-center justify-center rounded-xl border border-[#e5e7eb] bg-white px-3 text-sm font-medium text-neutral-800 transition-colors hover:border-neutral-900"
                 >
                   Sign in
                 </a>
@@ -261,7 +261,7 @@ function MarketingLayout() {
                           key={item.href}
                           href={item.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex min-h-10 items-center rounded-xl px-2 text-sm font-medium text-neutral-800 transition-colors hover:bg-[#ebe5dd] hover:text-neutral-950"
+                          className="flex min-h-10 items-center rounded-xl px-2 text-sm font-medium text-neutral-800 transition-colors hover:bg-[#eef1ee] hover:text-neutral-950"
                         >
                           {item.label}
                         </a>
@@ -336,7 +336,7 @@ function ResourcesDropdown() {
             <a
               key={resource.href}
               href={resource.href}
-              className="block rounded-md px-3 py-2.5 transition-colors hover:bg-[#f5f1ec]"
+              className="block rounded-md px-3 py-2.5 transition-colors hover:bg-[#fbfcfb]"
             >
               <span className="block text-sm font-semibold text-neutral-900">
                 {resource.label}
@@ -380,7 +380,7 @@ function FeatureDropdown() {
                     <a
                       key={page.slug}
                       href={`/features/${page.slug}`}
-                      className="block rounded-md px-2 py-1.5 transition-colors hover:bg-[#f5f1ec]"
+                      className="block rounded-md px-2 py-1.5 transition-colors hover:bg-[#fbfcfb]"
                     >
                       <span className="block text-sm font-semibold text-neutral-900">
                         {page.eyebrow}
@@ -400,7 +400,7 @@ function FeatureDropdown() {
               <div className="mt-3 space-y-2">
                 <a
                   href="/features/mcp"
-                  className="block rounded-md p-2 transition-colors hover:bg-[#f5f1ec]"
+                  className="block rounded-md p-2 transition-colors hover:bg-[#fbfcfb]"
                 >
                   <span className="text-sm font-semibold text-neutral-900">
                     OpenSEO MCP
@@ -411,7 +411,7 @@ function FeatureDropdown() {
                 </a>
                 <a
                   href="/google-search-console-mcp"
-                  className="block rounded-md p-2 transition-colors hover:bg-[#f5f1ec]"
+                  className="block rounded-md p-2 transition-colors hover:bg-[#fbfcfb]"
                 >
                   <span className="text-sm font-semibold text-neutral-900">
                     Search Console MCP
@@ -422,7 +422,7 @@ function FeatureDropdown() {
                 </a>
                 <a
                   href="/features"
-                  className="block rounded-md border border-[var(--color-border-subtle)] bg-[#f5f1ec] px-2 py-1.5 text-sm font-medium text-neutral-900 transition-colors hover:border-neutral-900"
+                  className="block rounded-md border border-[var(--color-border-subtle)] bg-[#fbfcfb] px-2 py-1.5 text-sm font-medium text-neutral-900 transition-colors hover:border-neutral-900"
                 >
                   View all features <span aria-hidden="true">&rarr;</span>
                 </a>

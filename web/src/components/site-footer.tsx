@@ -103,6 +103,7 @@ export function SiteFooter({ className }: { className?: string }) {
             >
               Discord
             </a>
+            <Link to="/changelog">Changelog</Link>
             <Link to="/privacy">Privacy</Link>
             <Link to="/terms-and-conditions">Terms</Link>
             <PrivacyChoicesLink />
