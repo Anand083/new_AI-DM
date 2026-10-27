@@ -10,44 +10,7 @@ import { NewsletterSignup } from "@/components/newsletter-signup";
 import { SiteFooter } from "@/components/site-footer";
 import { featureGroups } from "@/lib/feature-pages";
 
-const GITHUB_REPO = "every-app/open-seo";
-// Used if GitHub is unreachable at build time so the header never renders empty.
-const FALLBACK_STAR_COUNT = "2.1k";
-
-// Round to the nearest hundred and render in thousands, e.g. 3140 -> "3.1k".
-function formatStarCount(count: number): string {
-  if (count < 1000) return String(count);
-  return `${(Math.round(count / 100) / 10).toString()}k`;
-}
-
-async function fetchGithubStarCount(): Promise<string> {
-  try {
-    const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}`, {
-      headers: {
-        Accept: "application/vnd.github+json",
-        // GitHub rejects requests without a User-Agent.
-        "User-Agent": "openseo-landing",
-      },
-    });
-    if (!res.ok) return FALLBACK_STAR_COUNT;
-    const data = (await res.json()) as { stargazers_count?: number };
-    return typeof data.stargazers_count === "number"
-      ? formatStarCount(data.stargazers_count)
-      : FALLBACK_STAR_COUNT;
-  } catch {
-    return FALLBACK_STAR_COUNT;
-  }
-}
-
-// Memoized for the duration of a build so prerendering every marketing page
-// only hits GitHub once instead of once per page.
-let starCountPromise: Promise<string> | null = null;
-function loadGithubStarCount(): Promise<string> {
-  starCountPromise ??= fetchGithubStarCount();
-  return starCountPromise;
-}
-
-function getMobileNavItems(githubStarCount: string) {
+function getMobileNavItems() {
   return [
     {
       label: "Product",
@@ -66,24 +29,7 @@ function getMobileNavItems(githubStarCount: string) {
         { label: "Docs", href: "/docs" },
       ],
     },
-    {
-      label: "Community",
-      links: [
-        {
-          label: `GitHub ${githubStarCount}`,
-          href: "https://github.com/every-app/open-seo",
-        },
-      ],
-    },
   ];
-}
-
-function GitHubIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-    </svg>
-  );
 }
 
 function MenuIcon({ size = 28 }: { size?: number }) {
@@ -124,19 +70,14 @@ function CloseIcon({ size = 28 }: { size?: number }) {
 }
 
 export const Route = createFileRoute("/_marketing")({
-  // Fetch once at SSR/prerender time, not once per visitor.
-  loader: async () => ({ githubStarCount: await loadGithubStarCount() }),
-  // The value is fixed per build; never refetch it on client navigation.
-  staleTime: Infinity,
   component: MarketingLayout,
 });
 
 function MarketingLayout() {
-  const { githubStarCount } = Route.useLoaderData();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { pathname } = useLocation();
 
-  const mobileNavItems = getMobileNavItems(githubStarCount);
+  const mobileNavItems = getMobileNavItems();
   // The home route owns the full viewport width and footer;
   // every other marketing page gets the shared marketing canvas and footer.
   const isHome = pathname === "/";
@@ -148,8 +89,8 @@ function MarketingLayout() {
     const root = document.documentElement;
     const prevRoot = root.style.backgroundColor;
     const prevBody = document.body.style.backgroundColor;
-    root.style.backgroundColor = "#fbfcfb";
-    document.body.style.backgroundColor = "#fbfcfb";
+    root.style.backgroundColor = "#f1f1ee";
+    document.body.style.backgroundColor = "#f1f1ee";
     return () => {
       root.style.backgroundColor = prevRoot;
       document.body.style.backgroundColor = prevBody;
@@ -174,8 +115,8 @@ function MarketingLayout() {
   }, [mobileMenuOpen]);
 
   return (
-    <main className="fd-light min-h-screen bg-[var(--color-surface)] text-[var(--color-brand)]">
-      <header className="sticky top-0 z-50 w-full border-b border-[#e5e7eb] bg-[#fbfcfb]/95 backdrop-blur-xl">
+    <main className="fd-light mk min-h-screen bg-[var(--color-surface)] text-[var(--color-brand)]">
+      <header className="sticky top-0 z-50 w-full border-b border-[#e5e7eb] bg-[#f1f1ee]/95 backdrop-blur-xl">
         <div className="relative mx-auto w-full max-w-[1232px] px-6">
           <nav
             aria-label="Main navigation"
@@ -205,22 +146,10 @@ function MarketingLayout() {
                 aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={mobileMenuOpen}
                 onClick={() => setMobileMenuOpen((open) => !open)}
-                className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-900 transition-colors hover:bg-[#fbfcfb] md:hidden"
+                className="inline-flex h-9 w-9 items-center justify-center rounded-full text-neutral-900 transition-colors hover:bg-[#f1f1ee] md:hidden"
               >
                 {mobileMenuOpen ? <CloseIcon /> : <MenuIcon />}
               </button>
-              <a
-                href="https://github.com/every-app/open-seo"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={`GitHub, ${githubStarCount} stars`}
-                className="group hidden h-9 items-center gap-1.5 px-2 text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900 md:inline-flex"
-              >
-                <GitHubIcon size={16} />
-                <span className="text-neutral-500 transition-colors group-hover:text-neutral-900">
-                  {githubStarCount}
-                </span>
-              </a>
               <a
                 href="https://app.openseo.so/sign-in"
                 className="hidden h-9 items-center gap-2 border-l border-[#e5e7eb] pl-5 text-sm font-medium text-neutral-900 transition-colors hover:text-neutral-600 md:inline-flex"
@@ -231,7 +160,7 @@ function MarketingLayout() {
           </nav>
 
           {mobileMenuOpen ? (
-            <div className="absolute inset-x-0 top-full h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-[#e5e7eb] bg-[#fbfcfb] p-4 md:hidden">
+            <div className="absolute inset-x-0 top-full h-[calc(100dvh-4rem)] overflow-y-auto overscroll-contain border-t border-[#e5e7eb] bg-[#f1f1ee] p-4 md:hidden">
               <div className="grid grid-cols-2 gap-2">
                 <a
                   href="https://app.openseo.so/sign-in"
@@ -336,7 +265,7 @@ function ResourcesDropdown() {
             <a
               key={resource.href}
               href={resource.href}
-              className="block rounded-md px-3 py-2.5 transition-colors hover:bg-[#fbfcfb]"
+              className="block rounded-md px-3 py-2.5 transition-colors hover:bg-[#f1f1ee]"
             >
               <span className="block text-sm font-semibold text-neutral-900">
                 {resource.label}
@@ -380,7 +309,7 @@ function FeatureDropdown() {
                     <a
                       key={page.slug}
                       href={`/features/${page.slug}`}
-                      className="block rounded-md px-2 py-1.5 transition-colors hover:bg-[#fbfcfb]"
+                      className="block rounded-md px-2 py-1.5 transition-colors hover:bg-[#f1f1ee]"
                     >
                       <span className="block text-sm font-semibold text-neutral-900">
                         {page.eyebrow}
@@ -400,7 +329,7 @@ function FeatureDropdown() {
               <div className="mt-3 space-y-2">
                 <a
                   href="/features/mcp"
-                  className="block rounded-md p-2 transition-colors hover:bg-[#fbfcfb]"
+                  className="block rounded-md p-2 transition-colors hover:bg-[#f1f1ee]"
                 >
                   <span className="text-sm font-semibold text-neutral-900">
                     OpenSEO MCP
@@ -411,7 +340,7 @@ function FeatureDropdown() {
                 </a>
                 <a
                   href="/google-search-console-mcp"
-                  className="block rounded-md p-2 transition-colors hover:bg-[#fbfcfb]"
+                  className="block rounded-md p-2 transition-colors hover:bg-[#f1f1ee]"
                 >
                   <span className="text-sm font-semibold text-neutral-900">
                     Search Console MCP
@@ -422,7 +351,7 @@ function FeatureDropdown() {
                 </a>
                 <a
                   href="/features"
-                  className="block rounded-md border border-[var(--color-border-subtle)] bg-[#fbfcfb] px-2 py-1.5 text-sm font-medium text-neutral-900 transition-colors hover:border-neutral-900"
+                  className="block rounded-md border border-[var(--color-border-subtle)] bg-[#f1f1ee] px-2 py-1.5 text-sm font-medium text-neutral-900 transition-colors hover:border-neutral-900"
                 >
                   View all features <span aria-hidden="true">&rarr;</span>
                 </a>

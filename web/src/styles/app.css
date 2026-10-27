@@ -1,14 +1,16 @@
 @import "tailwindcss";
+@import "@fontsource-variable/bricolage-grotesque";
+@import "@fontsource-variable/instrument-sans";
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
 
 @theme {
   --color-brand: #111111;
   --color-brand-muted: #66625e;
-  --color-brand-accent: #16a34a;
-  --color-surface: #fbfcfb;
+  --color-brand-accent: #1f3df0;
+  --color-surface: #f1f1ee;
   --color-surface-raised: #ffffff;
-  --color-border-subtle: #d8d1c8;
+  --color-border-subtle: #c9cbd1;
 }
 
 /* Marketing and blog pages are light-only, but RootProvider still toggles `.dark`
@@ -68,3 +70,8 @@ body {
     sans-serif;
   overflow-x: clip;
 }
+
+/* Marketing site type: matches the magazine-style landing page. */
+.mk { font-family: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif; }
+.mk h1, .mk h2, .mk h3 { font-family: "Bricolage Grotesque Variable", "Instrument Sans Variable", sans-serif; letter-spacing: -0.035em; }
+.mk h1 { font-weight: 800; }

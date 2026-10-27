@@ -22,14 +22,18 @@ import { Route as MarketingBacklinkCheckerRouteImport } from './routes/_marketin
 import { Route as MarketingChangelogRouteImport } from './routes/_marketing/changelog'
 import { Route as MarketingCompetitorAnalysisRouteImport } from './routes/_marketing/competitor-analysis'
 import { Route as MarketingCompetitorKeywordFinderRouteImport } from './routes/_marketing/competitor-keyword-finder'
+import { Route as MarketingCookiesRouteImport } from './routes/_marketing/cookies'
 import { Route as MarketingDomainAgeCheckerRouteImport } from './routes/_marketing/domain-age-checker'
 import { Route as MarketingGoogleSearchConsoleMcpRouteImport } from './routes/_marketing/google-search-console-mcp'
+import { Route as MarketingIntegrationsRouteImport } from './routes/_marketing/integrations'
 import { Route as MarketingKeywordGeneratorRouteImport } from './routes/_marketing/keyword-generator'
 import { Route as MarketingOpenSourceSeoRouteImport } from './routes/_marketing/open-source-seo'
 import { Route as MarketingOpenseoVsDataforseoRouteImport } from './routes/_marketing/openseo-vs-dataforseo'
 import { Route as MarketingPricingRouteImport } from './routes/_marketing/pricing'
 import { Route as MarketingPrivacyRouteImport } from './routes/_marketing/privacy'
+import { Route as MarketingRefundsRouteImport } from './routes/_marketing/refunds'
 import { Route as MarketingRoadmapRouteImport } from './routes/_marketing/roadmap'
+import { Route as MarketingSecurityRouteImport } from './routes/_marketing/security'
 import { Route as MarketingSemrushAlternativeRouteImport } from './routes/_marketing/semrush-alternative'
 import { Route as MarketingSemrushPricingRouteImport } from './routes/_marketing/semrush-pricing'
 import { Route as MarketingSerpSimulatorRouteImport } from './routes/_marketing/serp-simulator'
@@ -170,6 +174,11 @@ const MarketingCompetitorKeywordFinderRoute =
     path: '/competitor-keyword-finder',
     getParentRoute: () => MarketingRoute,
   } as any)
+const MarketingCookiesRoute = MarketingCookiesRouteImport.update({
+  id: '/cookies',
+  path: '/cookies',
+  getParentRoute: () => MarketingRoute,
+} as any)
 const MarketingDomainAgeCheckerRoute =
   MarketingDomainAgeCheckerRouteImport.update({
     id: '/domain-age-checker',
@@ -182,6 +191,11 @@ const MarketingGoogleSearchConsoleMcpRoute =
     path: '/google-search-console-mcp',
     getParentRoute: () => MarketingRoute,
   } as any)
+const MarketingIntegrationsRoute = MarketingIntegrationsRouteImport.update({
+  id: '/integrations',
+  path: '/integrations',
+  getParentRoute: () => MarketingRoute,
+} as any)
 const MarketingKeywordGeneratorRoute =
   MarketingKeywordGeneratorRouteImport.update({
     id: '/keyword-generator',
@@ -209,9 +223,19 @@ const MarketingPrivacyRoute = MarketingPrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => MarketingRoute,
 } as any)
+const MarketingRefundsRoute = MarketingRefundsRouteImport.update({
+  id: '/refunds',
+  path: '/refunds',
+  getParentRoute: () => MarketingRoute,
+} as any)
 const MarketingRoadmapRoute = MarketingRoadmapRouteImport.update({
   id: '/roadmap',
   path: '/roadmap',
+  getParentRoute: () => MarketingRoute,
+} as any)
+const MarketingSecurityRoute = MarketingSecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
   getParentRoute: () => MarketingRoute,
 } as any)
 const MarketingSemrushAlternativeRoute =
@@ -638,14 +662,18 @@ export interface FileRoutesByFullPath {
   '/changelog': typeof MarketingChangelogRoute
   '/competitor-analysis': typeof MarketingCompetitorAnalysisRoute
   '/competitor-keyword-finder': typeof MarketingCompetitorKeywordFinderRoute
+  '/cookies': typeof MarketingCookiesRoute
   '/domain-age-checker': typeof MarketingDomainAgeCheckerRoute
   '/google-search-console-mcp': typeof MarketingGoogleSearchConsoleMcpRoute
+  '/integrations': typeof MarketingIntegrationsRoute
   '/keyword-generator': typeof MarketingKeywordGeneratorRoute
   '/open-source-seo': typeof MarketingOpenSourceSeoRoute
   '/openseo-vs-dataforseo': typeof MarketingOpenseoVsDataforseoRoute
   '/pricing': typeof MarketingPricingRoute
   '/privacy': typeof MarketingPrivacyRoute
+  '/refunds': typeof MarketingRefundsRoute
   '/roadmap': typeof MarketingRoadmapRoute
+  '/security': typeof MarketingSecurityRoute
   '/semrush-alternative': typeof MarketingSemrushAlternativeRoute
   '/semrush-pricing': typeof MarketingSemrushPricingRoute
   '/serp-simulator': typeof MarketingSerpSimulatorRoute
@@ -731,14 +759,18 @@ export interface FileRoutesByTo {
   '/changelog': typeof MarketingChangelogRoute
   '/competitor-analysis': typeof MarketingCompetitorAnalysisRoute
   '/competitor-keyword-finder': typeof MarketingCompetitorKeywordFinderRoute
+  '/cookies': typeof MarketingCookiesRoute
   '/domain-age-checker': typeof MarketingDomainAgeCheckerRoute
   '/google-search-console-mcp': typeof MarketingGoogleSearchConsoleMcpRoute
+  '/integrations': typeof MarketingIntegrationsRoute
   '/keyword-generator': typeof MarketingKeywordGeneratorRoute
   '/open-source-seo': typeof MarketingOpenSourceSeoRoute
   '/openseo-vs-dataforseo': typeof MarketingOpenseoVsDataforseoRoute
   '/pricing': typeof MarketingPricingRoute
   '/privacy': typeof MarketingPrivacyRoute
+  '/refunds': typeof MarketingRefundsRoute
   '/roadmap': typeof MarketingRoadmapRoute
+  '/security': typeof MarketingSecurityRoute
   '/semrush-alternative': typeof MarketingSemrushAlternativeRoute
   '/semrush-pricing': typeof MarketingSemrushPricingRoute
   '/serp-simulator': typeof MarketingSerpSimulatorRoute
@@ -826,14 +858,18 @@ export interface FileRoutesById {
   '/_marketing/changelog': typeof MarketingChangelogRoute
   '/_marketing/competitor-analysis': typeof MarketingCompetitorAnalysisRoute
   '/_marketing/competitor-keyword-finder': typeof MarketingCompetitorKeywordFinderRoute
+  '/_marketing/cookies': typeof MarketingCookiesRoute
   '/_marketing/domain-age-checker': typeof MarketingDomainAgeCheckerRoute
   '/_marketing/google-search-console-mcp': typeof MarketingGoogleSearchConsoleMcpRoute
+  '/_marketing/integrations': typeof MarketingIntegrationsRoute
   '/_marketing/keyword-generator': typeof MarketingKeywordGeneratorRoute
   '/_marketing/open-source-seo': typeof MarketingOpenSourceSeoRoute
   '/_marketing/openseo-vs-dataforseo': typeof MarketingOpenseoVsDataforseoRoute
   '/_marketing/pricing': typeof MarketingPricingRoute
   '/_marketing/privacy': typeof MarketingPrivacyRoute
+  '/_marketing/refunds': typeof MarketingRefundsRoute
   '/_marketing/roadmap': typeof MarketingRoadmapRoute
+  '/_marketing/security': typeof MarketingSecurityRoute
   '/_marketing/semrush-alternative': typeof MarketingSemrushAlternativeRoute
   '/_marketing/semrush-pricing': typeof MarketingSemrushPricingRoute
   '/_marketing/serp-simulator': typeof MarketingSerpSimulatorRoute
@@ -922,14 +958,18 @@ export interface FileRouteTypes {
     | '/changelog'
     | '/competitor-analysis'
     | '/competitor-keyword-finder'
+    | '/cookies'
     | '/domain-age-checker'
     | '/google-search-console-mcp'
+    | '/integrations'
     | '/keyword-generator'
     | '/open-source-seo'
     | '/openseo-vs-dataforseo'
     | '/pricing'
     | '/privacy'
+    | '/refunds'
     | '/roadmap'
+    | '/security'
     | '/semrush-alternative'
     | '/semrush-pricing'
     | '/serp-simulator'
@@ -1015,14 +1055,18 @@ export interface FileRouteTypes {
     | '/changelog'
     | '/competitor-analysis'
     | '/competitor-keyword-finder'
+    | '/cookies'
     | '/domain-age-checker'
     | '/google-search-console-mcp'
+    | '/integrations'
     | '/keyword-generator'
     | '/open-source-seo'
     | '/openseo-vs-dataforseo'
     | '/pricing'
     | '/privacy'
+    | '/refunds'
     | '/roadmap'
+    | '/security'
     | '/semrush-alternative'
     | '/semrush-pricing'
     | '/serp-simulator'
@@ -1109,14 +1153,18 @@ export interface FileRouteTypes {
     | '/_marketing/changelog'
     | '/_marketing/competitor-analysis'
     | '/_marketing/competitor-keyword-finder'
+    | '/_marketing/cookies'
     | '/_marketing/domain-age-checker'
     | '/_marketing/google-search-console-mcp'
+    | '/_marketing/integrations'
     | '/_marketing/keyword-generator'
     | '/_marketing/open-source-seo'
     | '/_marketing/openseo-vs-dataforseo'
     | '/_marketing/pricing'
     | '/_marketing/privacy'
+    | '/_marketing/refunds'
     | '/_marketing/roadmap'
+    | '/_marketing/security'
     | '/_marketing/semrush-alternative'
     | '/_marketing/semrush-pricing'
     | '/_marketing/serp-simulator'
@@ -1310,6 +1358,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarketingCompetitorKeywordFinderRouteImport
       parentRoute: typeof MarketingRoute
     }
+    '/_marketing/cookies': {
+      id: '/_marketing/cookies'
+      path: '/cookies'
+      fullPath: '/cookies'
+      preLoaderRoute: typeof MarketingCookiesRouteImport
+      parentRoute: typeof MarketingRoute
+    }
     '/_marketing/domain-age-checker': {
       id: '/_marketing/domain-age-checker'
       path: '/domain-age-checker'
@@ -1322,6 +1377,13 @@ declare module '@tanstack/react-router' {
       path: '/google-search-console-mcp'
       fullPath: '/google-search-console-mcp'
       preLoaderRoute: typeof MarketingGoogleSearchConsoleMcpRouteImport
+      parentRoute: typeof MarketingRoute
+    }
+    '/_marketing/integrations': {
+      id: '/_marketing/integrations'
+      path: '/integrations'
+      fullPath: '/integrations'
+      preLoaderRoute: typeof MarketingIntegrationsRouteImport
       parentRoute: typeof MarketingRoute
     }
     '/_marketing/keyword-generator': {
@@ -1359,11 +1421,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MarketingPrivacyRouteImport
       parentRoute: typeof MarketingRoute
     }
+    '/_marketing/refunds': {
+      id: '/_marketing/refunds'
+      path: '/refunds'
+      fullPath: '/refunds'
+      preLoaderRoute: typeof MarketingRefundsRouteImport
+      parentRoute: typeof MarketingRoute
+    }
     '/_marketing/roadmap': {
       id: '/_marketing/roadmap'
       path: '/roadmap'
       fullPath: '/roadmap'
       preLoaderRoute: typeof MarketingRoadmapRouteImport
+      parentRoute: typeof MarketingRoute
+    }
+    '/_marketing/security': {
+      id: '/_marketing/security'
+      path: '/security'
+      fullPath: '/security'
+      preLoaderRoute: typeof MarketingSecurityRouteImport
       parentRoute: typeof MarketingRoute
     }
     '/_marketing/semrush-alternative': {
@@ -1895,14 +1971,18 @@ interface MarketingRouteChildren {
   MarketingChangelogRoute: typeof MarketingChangelogRoute
   MarketingCompetitorAnalysisRoute: typeof MarketingCompetitorAnalysisRoute
   MarketingCompetitorKeywordFinderRoute: typeof MarketingCompetitorKeywordFinderRoute
+  MarketingCookiesRoute: typeof MarketingCookiesRoute
   MarketingDomainAgeCheckerRoute: typeof MarketingDomainAgeCheckerRoute
   MarketingGoogleSearchConsoleMcpRoute: typeof MarketingGoogleSearchConsoleMcpRoute
+  MarketingIntegrationsRoute: typeof MarketingIntegrationsRoute
   MarketingKeywordGeneratorRoute: typeof MarketingKeywordGeneratorRoute
   MarketingOpenSourceSeoRoute: typeof MarketingOpenSourceSeoRoute
   MarketingOpenseoVsDataforseoRoute: typeof MarketingOpenseoVsDataforseoRoute
   MarketingPricingRoute: typeof MarketingPricingRoute
   MarketingPrivacyRoute: typeof MarketingPrivacyRoute
+  MarketingRefundsRoute: typeof MarketingRefundsRoute
   MarketingRoadmapRoute: typeof MarketingRoadmapRoute
+  MarketingSecurityRoute: typeof MarketingSecurityRoute
   MarketingSemrushAlternativeRoute: typeof MarketingSemrushAlternativeRoute
   MarketingSemrushPricingRoute: typeof MarketingSemrushPricingRoute
   MarketingSerpSimulatorRoute: typeof MarketingSerpSimulatorRoute
@@ -1967,14 +2047,18 @@ const MarketingRouteChildren: MarketingRouteChildren = {
   MarketingChangelogRoute: MarketingChangelogRoute,
   MarketingCompetitorAnalysisRoute: MarketingCompetitorAnalysisRoute,
   MarketingCompetitorKeywordFinderRoute: MarketingCompetitorKeywordFinderRoute,
+  MarketingCookiesRoute: MarketingCookiesRoute,
   MarketingDomainAgeCheckerRoute: MarketingDomainAgeCheckerRoute,
   MarketingGoogleSearchConsoleMcpRoute: MarketingGoogleSearchConsoleMcpRoute,
+  MarketingIntegrationsRoute: MarketingIntegrationsRoute,
   MarketingKeywordGeneratorRoute: MarketingKeywordGeneratorRoute,
   MarketingOpenSourceSeoRoute: MarketingOpenSourceSeoRoute,
   MarketingOpenseoVsDataforseoRoute: MarketingOpenseoVsDataforseoRoute,
   MarketingPricingRoute: MarketingPricingRoute,
   MarketingPrivacyRoute: MarketingPrivacyRoute,
+  MarketingRefundsRoute: MarketingRefundsRoute,
   MarketingRoadmapRoute: MarketingRoadmapRoute,
+  MarketingSecurityRoute: MarketingSecurityRoute,
   MarketingSemrushAlternativeRoute: MarketingSemrushAlternativeRoute,
   MarketingSemrushPricingRoute: MarketingSemrushPricingRoute,
   MarketingSerpSimulatorRoute: MarketingSerpSimulatorRoute,
