@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { LandingPage } from "@/components/landing-page";
+import { LandingV2 as LandingPage } from "@/components/landing/landing-v2";
 import { buildPageSeo } from "@/lib/seo";
 
 const homeTitle = "OpenSEO - Open Source SEO Platform";

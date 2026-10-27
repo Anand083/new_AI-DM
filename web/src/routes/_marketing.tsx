@@ -1,3 +1,4 @@
+import { BRAND } from "@/components/landing/brand";
 import {
   createFileRoute,
   Link,
@@ -184,7 +185,7 @@ function MarketingLayout() {
               to="/"
               className="text-xl font-medium tracking-[-0.06em] hover:opacity-80 transition-opacity"
             >
-              OpenSEO
+              {BRAND}
             </Link>
 
             <div className="hidden items-center gap-7 md:flex">
@@ -237,7 +238,7 @@ function MarketingLayout() {
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex h-11 items-center justify-center rounded-xl bg-neutral-950 px-3 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
                 >
-                  Try OpenSEO
+                  Try {BRAND}
                 </a>
                 <a
                   href="https://app.openseo.so/sign-in"
