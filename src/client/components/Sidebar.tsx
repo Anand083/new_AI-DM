@@ -13,6 +13,7 @@ import {
   Settings,
   User,
 } from "lucide-react";
+import { adminAccessQueryOptions } from "@/client/features/admin/adminQueries";
 import { organizationContextQueryOptions } from "@/client/features/team/organizationQueries";
 import { switchOrganization } from "@/serverFunctions/organization";
 import { clearLastProjectId } from "@/client/lib/active-project";
@@ -243,6 +244,11 @@ function AccountFooter({ ready }: { ready: boolean }) {
     ? everyAppAccountQuery.data?.email
     : session?.user?.email;
   const [isSwitching, setIsSwitching] = useState(false);
+  const adminAccessQuery = useQuery({
+    ...adminAccessQueryOptions(),
+    enabled: ready,
+  });
+  const isAdmin = adminAccessQuery.data?.isAdmin === true;
   const orgContextQuery = useQuery({
     ...organizationContextQueryOptions(),
     enabled: Boolean(email) && !everyApp,
@@ -270,6 +276,9 @@ function AccountFooter({ ready }: { ready: boolean }) {
   return (
     <UiSidebarFooter className="gap-0 border-t border-sidebar-border pb-safe">
       <SidebarMenu>
+        {isAdmin ? (
+          <SidebarNavLink label="Admin" linkProps={{ to: "/admin" }} />
+        ) : null}
         <SidebarNavLink
           label="Help & Community"
           linkProps={{ to: "/support" }}

@@ -36,6 +36,10 @@ declare namespace Cloudflare {
       | "everyapp";
     BYPASS_EMAIL_VERIFICATION?: string;
 
+    // Comma-separated emails allowed to open the platform admin page (/admin).
+    // In AUTH_MODE=local_noauth the local admin can always open it.
+    ADMIN_EMAILS?: string;
+
     // AUTH_MODE=everyapp: OpenSEO behind an Every App gateway. The deploy
     // (`everyapp deploy`) sets the identity keys, the app id the tokens
     // must name, and the binding through which the gateway calls DataForSEO

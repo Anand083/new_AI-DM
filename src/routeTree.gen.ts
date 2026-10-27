@@ -19,6 +19,7 @@ import { Route as VerifyEmailRouteImport } from './routes/verify-email'
 import { Route as Char91DotwellKnownChar93HttpMessageSignaturesDirectoryRouteImport } from './routes/[.well-known]/http-message-signatures-directory'
 import { Route as Char91DotwellKnownChar93OpenaiAppsChallengeRouteImport } from './routes/[.well-known]/openai-apps-challenge'
 import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as AppAdminRouteImport } from './routes/_app/admin'
 import { Route as AppAiRouteImport } from './routes/_app/ai'
 import { Route as AppBillingRouteImport } from './routes/_app/billing'
 import { Route as AppProjectsRouteImport } from './routes/_app/projects'
@@ -128,6 +129,11 @@ const Char91DotwellKnownChar93OpenaiAppsChallengeRoute =
 const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+const AppAdminRoute = AppAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => AppRouteRoute,
 } as any)
 const AppAiRoute = AppAiRouteImport.update({
@@ -466,6 +472,7 @@ export interface FileRoutesByFullPath {
   '/verify-email': typeof VerifyEmailRoute
   '/.well-known/http-message-signatures-directory': typeof Char91DotwellKnownChar93HttpMessageSignaturesDirectoryRoute
   '/.well-known/openai-apps-challenge': typeof Char91DotwellKnownChar93OpenaiAppsChallengeRoute
+  '/admin': typeof AppAdminRoute
   '/ai': typeof AppAiRoute
   '/billing': typeof AppBillingRoute
   '/projects': typeof AppProjectsRoute
@@ -536,6 +543,7 @@ export interface FileRoutesByTo {
   '/verify-email': typeof VerifyEmailRoute
   '/.well-known/http-message-signatures-directory': typeof Char91DotwellKnownChar93HttpMessageSignaturesDirectoryRoute
   '/.well-known/openai-apps-challenge': typeof Char91DotwellKnownChar93OpenaiAppsChallengeRoute
+  '/admin': typeof AppAdminRoute
   '/ai': typeof AppAiRoute
   '/billing': typeof AppBillingRoute
   '/projects': typeof AppProjectsRoute
@@ -603,6 +611,7 @@ export interface FileRoutesById {
   '/verify-email': typeof VerifyEmailRoute
   '/.well-known/http-message-signatures-directory': typeof Char91DotwellKnownChar93HttpMessageSignaturesDirectoryRoute
   '/.well-known/openai-apps-challenge': typeof Char91DotwellKnownChar93OpenaiAppsChallengeRoute
+  '/_app/admin': typeof AppAdminRoute
   '/_app/ai': typeof AppAiRoute
   '/_app/billing': typeof AppBillingRoute
   '/_app/projects': typeof AppProjectsRoute
@@ -676,6 +685,7 @@ export interface FileRouteTypes {
     | '/verify-email'
     | '/.well-known/http-message-signatures-directory'
     | '/.well-known/openai-apps-challenge'
+    | '/admin'
     | '/ai'
     | '/billing'
     | '/projects'
@@ -746,6 +756,7 @@ export interface FileRouteTypes {
     | '/verify-email'
     | '/.well-known/http-message-signatures-directory'
     | '/.well-known/openai-apps-challenge'
+    | '/admin'
     | '/ai'
     | '/billing'
     | '/projects'
@@ -812,6 +823,7 @@ export interface FileRouteTypes {
     | '/verify-email'
     | '/.well-known/http-message-signatures-directory'
     | '/.well-known/openai-apps-challenge'
+    | '/_app/admin'
     | '/_app/ai'
     | '/_app/billing'
     | '/_app/projects'
@@ -973,6 +985,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/admin': {
+      id: '/_app/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AppAdminRouteImport
       parentRoute: typeof AppRouteRoute
     }
     '/_app/ai': {
@@ -1537,6 +1556,7 @@ const AppPProjectIdRouteRouteWithChildren =
   AppPProjectIdRouteRoute._addFileChildren(AppPProjectIdRouteRouteChildren)
 
 interface AppRouteRouteChildren {
+  AppAdminRoute: typeof AppAdminRoute
   AppAiRoute: typeof AppAiRoute
   AppBillingRoute: typeof AppBillingRoute
   AppProjectsRoute: typeof AppProjectsRoute
@@ -1550,6 +1570,7 @@ interface AppRouteRouteChildren {
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppAdminRoute: AppAdminRoute,
   AppAiRoute: AppAiRoute,
   AppBillingRoute: AppBillingRoute,
   AppProjectsRoute: AppProjectsRoute,
