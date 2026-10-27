@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BRAND, SIGN_IN_URL } from "./brand";
 import "./landing-v2.css";
 
@@ -123,6 +123,12 @@ export function LandingV2() {
   const [domain, setDomain] = useState("");
   const [open, setOpen] = useState<number | null>(0);
 
+  // Lets the site header, footer and page background switch to the dark look.
+  useEffect(() => {
+    document.body.classList.add("lp-dark-page");
+    return () => document.body.classList.remove("lp-dark-page");
+  }, []);
+
   function start(e: React.FormEvent) {
     e.preventDefault();
     const d = normalizeDomain(domain);
@@ -134,26 +140,33 @@ export function LandingV2() {
   return (
     <div className="lp">
       <section className="lp-hero">
-        <div className="lp-wrap lp-hero-grid">
-          <div>
-            <h1>Find what holds your site back. Fix it. Prove it worked.</h1>
-            <p className="lp-lead">
-              {BRAND} audits any website, ranks the problems by impact, and
-              tracks your rankings as you fix them. Pay only for the data you
-              use.
-            </p>
-            <form className="lp-form" onSubmit={start}>
-              <input
-                value={domain}
-                onChange={(e) => setDomain(e.target.value)}
-                placeholder="yourwebsite.com"
-                aria-label="Website to audit"
-              />
-              <button type="submit">Run free audit</button>
-            </form>
-            <p className="lp-fine">No credit card. Results in minutes.</p>
+        <div className="lp-glow" aria-hidden="true" />
+        <div className="lp-wrap lp-hero-inner">
+          <p className="lp-pill">Free site audit. Results in minutes.</p>
+          <h1>Find what holds your site back. Fix it. Prove it worked.</h1>
+          <p className="lp-lead">
+            {BRAND} audits any website, ranks the problems by impact, and
+            tracks your rankings as you fix them. Pay only for the data you
+            use.
+          </p>
+          <form className="lp-form" onSubmit={start}>
+            <input
+              value={domain}
+              onChange={(e) => setDomain(e.target.value)}
+              placeholder="yourwebsite.com"
+              aria-label="Website to audit"
+            />
+            <button type="submit">Run free audit</button>
+          </form>
+          <p className="lp-fine">No credit card needed.</p>
+          <div className="lp-frame">
+            <div className="lp-frame-bar" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
+            <AuditMock />
           </div>
-          <AuditMock />
         </div>
       </section>
 
