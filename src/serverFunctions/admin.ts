@@ -1,4 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
+import { z } from "zod";
+import { AppError } from "@/server/lib/errors";
 import {
   isPlatformAdmin,
   requirePlatformAdmin,
@@ -16,4 +18,16 @@ export const getAdminOverview = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     requirePlatformAdmin(context.userEmail);
     return AdminRepository.getOverview();
+  });
+
+export const getAdminOrganization = createServerFn({ method: "GET" })
+  .middleware(requireAuthenticatedContext)
+  .validator(z.object({ organizationId: z.string().min(1) }))
+  .handler(async ({ data, context }) => {
+    requirePlatformAdmin(context.userEmail);
+    const detail = await AdminRepository.getOrganizationDetail(
+      data.organizationId,
+    );
+    if (!detail) throw new AppError("NOT_FOUND");
+    return detail;
   });

@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { PageHeader } from "@/client/components/PageHeader";
 import { QueryState } from "@/client/components/QueryState";
+import { Input } from "@/client/components/ui/input";
 import { Badge } from "@/client/components/ui/badge";
 import { Card, CardContent } from "@/client/components/ui/card";
 import {
@@ -48,7 +51,11 @@ function Totals({ totals }: { totals: AdminOverview["totals"] }) {
   );
 }
 
-function OrganizationsTable({ rows }: { rows: AdminOverview["organizations"] }) {
+function OrganizationsTable({
+  rows,
+}: {
+  rows: AdminOverview["organizations"];
+}) {
   return (
     <section className="space-y-3">
       <h2 className="text-lg font-semibold">Organizations</h2>
@@ -74,7 +81,15 @@ function OrganizationsTable({ rows }: { rows: AdminOverview["organizations"] }) 
             ) : null}
             {rows.map((org) => (
               <TableRow key={org.id}>
-                <TableCell className="font-medium">{org.name}</TableCell>
+                <TableCell className="font-medium">
+                  <Link
+                    to="/admin/organizations/$organizationId"
+                    params={{ organizationId: org.id }}
+                    className="underline-offset-4 hover:underline"
+                  >
+                    {org.name}
+                  </Link>
+                </TableCell>
                 <TableCell>
                   {org.isPaying ? (
                     <Badge>{org.plan ?? "Paid"}</Badge>
@@ -150,18 +165,39 @@ function UsersTable({ rows }: { rows: AdminOverview["users"] }) {
 
 export function AdminPage() {
   const query = useQuery(adminOverviewQueryOptions());
+  const [search, setSearch] = useState("");
+  const needle = search.trim().toLowerCase();
   return (
     <div className="mx-auto w-full max-w-8xl space-y-6 p-4 md:p-6">
       <PageHeader
         title="Admin"
         description="Everyone on the platform, and how much they use it."
+        actions={
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search name or email"
+            aria-label="Search organizations and users"
+            className="w-64"
+          />
+        }
       />
       <QueryState query={query} errorFallback="Could not load the admin data.">
         {(data) => (
           <>
             <Totals totals={data.totals} />
-            <OrganizationsTable rows={data.organizations} />
-            <UsersTable rows={data.users} />
+            <OrganizationsTable
+              rows={data.organizations.filter((o) =>
+                o.name.toLowerCase().includes(needle),
+              )}
+            />
+            <UsersTable
+              rows={data.users.filter(
+                (u) =>
+                  u.name.toLowerCase().includes(needle) ||
+                  u.email.toLowerCase().includes(needle),
+              )}
+            />
           </>
         )}
       </QueryState>

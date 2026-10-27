@@ -1,3 +1,4 @@
+import { BRAND } from "@/shared/brand";
 import { Link, useLocation, useMatchRoute } from "@tanstack/react-router";
 import type { LinkOptions } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
@@ -149,7 +150,7 @@ export function Sidebar({
           onClick={() => setOpenMobile(false)}
           className="px-1 pb-2 text-base font-semibold text-sidebar-foreground"
         >
-          OpenSEO
+          {BRAND}
         </Link>
         <ProjectSwitcher
           activeProjectId={projectId}
@@ -284,10 +285,7 @@ function AccountFooter({ ready }: { ready: boolean }) {
           linkProps={{ to: "/support" }}
         />
         {everyApp ? (
-          <SidebarNavLink
-            label="Settings"
-            linkProps={{ to: "/settings" }}
-          />
+          <SidebarNavLink label="Settings" linkProps={{ to: "/settings" }} />
         ) : email ? (
           <SidebarMenuItem>
             <DropdownMenu>
@@ -372,10 +370,7 @@ function AccountFooter({ ready }: { ready: boolean }) {
             </DropdownMenu>
           </SidebarMenuItem>
         ) : ready ? (
-          <SidebarNavLink
-            label="Settings"
-            linkProps={{ to: "/settings" }}
-          />
+          <SidebarNavLink label="Settings" linkProps={{ to: "/settings" }} />
         ) : (
           // The account row's slot while the session loads.
           <SidebarMenuItem>

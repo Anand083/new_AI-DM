@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+import { BRAND } from "@/shared/brand";
 import {
   ClientOnly,
   HeadContent,
@@ -30,7 +31,7 @@ export const Route = createRootRoute({
   head: () => ({
     meta: [
       {
-        title: "OpenSEO",
+        title: BRAND,
       },
       {
         charSet: "utf-8",

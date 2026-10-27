@@ -1,4 +1,4 @@
-import { count, desc, eq, sql } from "drizzle-orm";
+import { count, desc, eq, inArray, sql } from "drizzle-orm";
 import { db } from "@/db";
 import {
   audits,
@@ -34,6 +34,35 @@ export type AdminOverview = {
     emailVerified: boolean;
     createdAt: number;
     organizations: number;
+  }>;
+};
+
+export type AdminOrganizationDetail = {
+  id: string;
+  name: string;
+  createdAt: number;
+  isPaying: boolean;
+  plan: string | null;
+  members: Array<{
+    userId: string;
+    name: string;
+    email: string;
+    role: string;
+  }>;
+  projects: Array<{
+    id: string;
+    name: string;
+    domain: string | null;
+    createdAt: string;
+    archived: boolean;
+  }>;
+  recentAudits: Array<{
+    id: string;
+    projectName: string;
+    startUrl: string;
+    status: string;
+    pagesCrawled: number;
+    startedAt: string;
   }>;
 };
 
@@ -150,6 +179,93 @@ export const AdminRepository = {
         ...row,
         createdAt: new Date(row.createdAt).getTime(),
         organizations: Number(row.organizations),
+      })),
+    };
+  },
+
+  async getOrganizationDetail(
+    organizationId: string,
+  ): Promise<AdminOrganizationDetail | null> {
+    const [org] = await db
+      .select({
+        id: organization.id,
+        name: organization.name,
+        createdAt: organization.createdAt,
+        isPaying: billingCustomerStatus.isPaying,
+        plan: billingCustomerStatus.paidPlanId,
+      })
+      .from(organization)
+      .leftJoin(
+        billingCustomerStatus,
+        eq(billingCustomerStatus.organizationId, organization.id),
+      )
+      .where(eq(organization.id, organizationId))
+      .limit(1);
+    if (!org) return null;
+
+    const memberRows = await db
+      .select({
+        userId: user.id,
+        name: user.name,
+        email: user.email,
+        role: member.role,
+      })
+      .from(member)
+      .innerJoin(user, eq(user.id, member.userId))
+      .where(eq(member.organizationId, organizationId));
+
+    const projectRows = await db
+      .select({
+        id: projects.id,
+        name: projects.name,
+        domain: projects.domain,
+        createdAt: projects.createdAt,
+        archivedAt: projects.archivedAt,
+      })
+      .from(projects)
+      .where(eq(projects.organizationId, organizationId))
+      .orderBy(desc(projects.createdAt));
+
+    const projectIds = projectRows.map((row) => row.id);
+    const auditRows =
+      projectIds.length === 0
+        ? []
+        : await db
+            .select({
+              id: audits.id,
+              projectId: audits.projectId,
+              startUrl: audits.startUrl,
+              status: audits.status,
+              pagesCrawled: audits.pagesCrawled,
+              startedAt: audits.startedAt,
+            })
+            .from(audits)
+            .where(inArray(audits.projectId, projectIds))
+            .orderBy(desc(audits.startedAt))
+            .limit(10);
+    const projectNames = new Map(projectRows.map((row) => [row.id, row.name]));
+
+    return {
+      id: org.id,
+      name: org.name,
+      createdAt: new Date(org.createdAt).getTime(),
+      isPaying: Boolean(org.isPaying),
+      plan: org.plan,
+      members: memberRows,
+      projects: projectRows.map((row) => ({
+        id: row.id,
+        name: row.name,
+        domain: row.domain,
+        createdAt: row.createdAt,
+        archived: row.archivedAt !== null,
+      })),
+      recentAudits: auditRows.map((row) => ({
+        id: row.id,
+        projectName: projectNames.get(row.projectId) ?? "",
+        startUrl: row.startUrl,
+        status: row.status,
+        pagesCrawled: row.pagesCrawled,
+        startedAt: row.startedAt,
       })),
     };
   },

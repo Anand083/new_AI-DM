@@ -73,7 +73,7 @@
   --card-foreground: oklch(20% 0 0);
   --popover: oklch(100% 0 0);
   --popover-foreground: oklch(20% 0 0);
-  --primary: oklch(55% 0.15 155);
+  --primary: oklch(46% 0.25 268);
   --primary-foreground: oklch(100% 0 0);
   --secondary: oklch(97% 0 0);
   --secondary-foreground: oklch(20% 0 0);
@@ -90,7 +90,7 @@
   --info-foreground: oklch(100% 0 0);
   --border: oklch(92% 0.006 250);
   --input: oklch(82% 0 0);
-  --ring: oklch(55% 0.15 155);
+  --ring: oklch(46% 0.25 268);
   --chart-1: oklch(57.5% 0.163 255.5);
   --chart-2: oklch(67.1% 0.175 40.6);
   --chart-3: oklch(66.9% 0.141 162.1);
@@ -98,12 +98,12 @@
   --chart-5: oklch(71.6% 0.141 357.4);
   --sidebar: oklch(100% 0 0);
   --sidebar-foreground: oklch(20% 0 0);
-  --sidebar-primary: oklch(55% 0.15 155);
+  --sidebar-primary: oklch(46% 0.25 268);
   --sidebar-primary-foreground: oklch(100% 0 0);
-  --sidebar-accent: oklch(96% 0.035 155);
-  --sidebar-accent-foreground: oklch(38% 0.12 155);
+  --sidebar-accent: oklch(95% 0.03 268);
+  --sidebar-accent-foreground: oklch(36% 0.2 268);
   --sidebar-border: oklch(92% 0.006 250);
-  --sidebar-ring: oklch(55% 0.15 155);
+  --sidebar-ring: oklch(46% 0.25 268);
 }
 
 [data-theme="openseo-dark"] {
@@ -354,17 +354,29 @@ html[data-theme="openseo-dark"] {
 
 /* Refined light look: soft borders, gentle depth, orange accent. */
 :where(:root, [data-theme="openseo"]) [data-slot="card"] {
-  box-shadow: 0 1px 2px oklch(22% 0.02 255 / 6%), 0 4px 12px oklch(22% 0.02 255 / 4%);
+  box-shadow:
+    0 1px 2px oklch(22% 0.02 255 / 6%),
+    0 4px 12px oklch(22% 0.02 255 / 4%);
 }
 :where(:root, [data-theme="openseo"]) [data-sidebar="menu-button"] {
   font-weight: 500;
 }
-:where(:root, [data-theme="openseo"]) [data-sidebar="menu-button"][data-active="true"] {
+:where(:root, [data-theme="openseo"])
+  [data-sidebar="menu-button"][data-active="true"] {
   font-weight: 600;
 }
-:where(:root, [data-theme="openseo"]) [data-sidebar="menu-button"][data-active="true"]::before {
+:where(:root, [data-theme="openseo"])
+  [data-sidebar="menu-button"][data-active="true"]::before {
   display: none;
 }
-[data-sidebar="menu-button"] { padding-left: 0.75rem; }
-h1, h2, h3 { letter-spacing: -0.015em; }
-h1 { font-weight: 700; }
+[data-sidebar="menu-button"] {
+  padding-left: 0.75rem;
+}
+h1,
+h2,
+h3 {
+  letter-spacing: -0.015em;
+}
+h1 {
+  font-weight: 700;
+}

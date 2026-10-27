@@ -1,5 +1,9 @@
 import { queryOptions } from "@tanstack/react-query";
-import { getAdminAccess, getAdminOverview } from "@/serverFunctions/admin";
+import {
+  getAdminAccess,
+  getAdminOrganization,
+  getAdminOverview,
+} from "@/serverFunctions/admin";
 
 export const adminAccessQueryOptions = () =>
   queryOptions({
@@ -12,4 +16,10 @@ export const adminOverviewQueryOptions = () =>
   queryOptions({
     queryKey: ["admin", "overview"],
     queryFn: () => getAdminOverview(),
+  });
+
+export const adminOrganizationQueryOptions = (organizationId: string) =>
+  queryOptions({
+    queryKey: ["admin", "organization", organizationId],
+    queryFn: () => getAdminOrganization({ data: { organizationId } }),
   });

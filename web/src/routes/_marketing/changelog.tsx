@@ -13,11 +13,12 @@ type Release = {
 const RELEASES: Release[] = [
   {
     date: "October 27, 2026",
-    title: "A new look, and an admin view",
+    title: "A new look, an admin area and new pages",
     added: [
-      "A cleaner, lighter design with a green accent across the app and website.",
+      "A new blue and black design across the app and the website.",
       "A text-only menu that is easier to scan.",
-      "A platform admin page showing every user and organization, with plan, projects and audits.",
+      "A platform admin area with every user and organization, search, and a detail page for each organization.",
+      "New pages for integrations, security, cookies and refunds.",
     ],
     fixed: ["The project switcher text is readable on the new sidebar."],
   },

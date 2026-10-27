@@ -48,6 +48,7 @@ import { Route as ReportMapGrantCopyrightRouteImport } from './routes/report-map
 import { Route as STokenIndexRouteImport } from './routes/s/$token/index'
 import { Route as STokenOgDotpngRouteImport } from './routes/s/$token/og[.]png'
 import { Route as STokenRawRouteImport } from './routes/s/$token/raw'
+import { Route as AppAdminOrganizationsOrganizationIdRouteImport } from './routes/_app/admin_.organizations.$organizationId'
 import { Route as AppPProjectIdIndexRouteImport } from './routes/_app/p/$projectId/index'
 import { Route as AppPProjectIdAiVisibilityRouteImport } from './routes/_app/p/$projectId/ai-visibility'
 import { Route as AppPProjectIdBacklinksRouteImport } from './routes/_app/p/$projectId/backlinks'
@@ -278,6 +279,12 @@ const STokenRawRoute = STokenRawRouteImport.update({
   path: '/s/$token/raw',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AppAdminOrganizationsOrganizationIdRoute =
+  AppAdminOrganizationsOrganizationIdRouteImport.update({
+    id: '/admin_/organizations/$organizationId',
+    path: '/admin/organizations/$organizationId',
+    getParentRoute: () => AppRouteRoute,
+  } as any)
 const AppPProjectIdIndexRoute = AppPProjectIdIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -501,6 +508,7 @@ export interface FileRoutesByFullPath {
   '/settings/': typeof AppSettingsIndexRoute
   '/onboarding/': typeof AuthenticatedOnboardingIndexRoute
   '/s/$token/': typeof STokenIndexRoute
+  '/admin/organizations/$organizationId': typeof AppAdminOrganizationsOrganizationIdRoute
   '/p/$projectId/ai-visibility': typeof AppPProjectIdAiVisibilityRouteWithChildren
   '/p/$projectId/backlinks': typeof AppPProjectIdBacklinksRoute
   '/p/$projectId/brand-lookup': typeof AppPProjectIdBrandLookupRoute
@@ -570,6 +578,7 @@ export interface FileRoutesByTo {
   '/settings': typeof AppSettingsIndexRoute
   '/onboarding': typeof AuthenticatedOnboardingIndexRoute
   '/s/$token': typeof STokenIndexRoute
+  '/admin/organizations/$organizationId': typeof AppAdminOrganizationsOrganizationIdRoute
   '/p/$projectId/backlinks': typeof AppPProjectIdBacklinksRoute
   '/p/$projectId/brand-lookup': typeof AppPProjectIdBrandLookupRoute
   '/p/$projectId/context': typeof AppPProjectIdContextRoute
@@ -641,6 +650,7 @@ export interface FileRoutesById {
   '/_app/settings/': typeof AppSettingsIndexRoute
   '/_authenticated/onboarding/': typeof AuthenticatedOnboardingIndexRoute
   '/s/$token/': typeof STokenIndexRoute
+  '/_app/admin_/organizations/$organizationId': typeof AppAdminOrganizationsOrganizationIdRoute
   '/_app/p/$projectId/ai-visibility': typeof AppPProjectIdAiVisibilityRouteWithChildren
   '/_app/p/$projectId/backlinks': typeof AppPProjectIdBacklinksRoute
   '/_app/p/$projectId/brand-lookup': typeof AppPProjectIdBrandLookupRoute
@@ -714,6 +724,7 @@ export interface FileRouteTypes {
     | '/settings/'
     | '/onboarding/'
     | '/s/$token/'
+    | '/admin/organizations/$organizationId'
     | '/p/$projectId/ai-visibility'
     | '/p/$projectId/backlinks'
     | '/p/$projectId/brand-lookup'
@@ -783,6 +794,7 @@ export interface FileRouteTypes {
     | '/settings'
     | '/onboarding'
     | '/s/$token'
+    | '/admin/organizations/$organizationId'
     | '/p/$projectId/backlinks'
     | '/p/$projectId/brand-lookup'
     | '/p/$projectId/context'
@@ -853,6 +865,7 @@ export interface FileRouteTypes {
     | '/_app/settings/'
     | '/_authenticated/onboarding/'
     | '/s/$token/'
+    | '/_app/admin_/organizations/$organizationId'
     | '/_app/p/$projectId/ai-visibility'
     | '/_app/p/$projectId/backlinks'
     | '/_app/p/$projectId/brand-lookup'
@@ -1189,6 +1202,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/s/$token/raw'
       preLoaderRoute: typeof STokenRawRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/_app/admin_/organizations/$organizationId': {
+      id: '/_app/admin_/organizations/$organizationId'
+      path: '/admin/organizations/$organizationId'
+      fullPath: '/admin/organizations/$organizationId'
+      preLoaderRoute: typeof AppAdminOrganizationsOrganizationIdRouteImport
+      parentRoute: typeof AppRouteRoute
     }
     '/_app/p/$projectId/': {
       id: '/_app/p/$projectId/'
@@ -1567,6 +1587,7 @@ interface AppRouteRouteChildren {
   AppBillingFixPaymentRoute: typeof AppBillingFixPaymentRoute
   AppHelpDataforseoApiKeyRoute: typeof AppHelpDataforseoApiKeyRoute
   AppHelpOpenrouterApiKeyRoute: typeof AppHelpOpenrouterApiKeyRoute
+  AppAdminOrganizationsOrganizationIdRoute: typeof AppAdminOrganizationsOrganizationIdRoute
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
@@ -1581,6 +1602,8 @@ const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppBillingFixPaymentRoute: AppBillingFixPaymentRoute,
   AppHelpDataforseoApiKeyRoute: AppHelpDataforseoApiKeyRoute,
   AppHelpOpenrouterApiKeyRoute: AppHelpOpenrouterApiKeyRoute,
+  AppAdminOrganizationsOrganizationIdRoute:
+    AppAdminOrganizationsOrganizationIdRoute,
 }
 
 const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
